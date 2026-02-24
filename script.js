@@ -17,6 +17,10 @@ submitButton.addEventListener("click", function () {
 });
 
 // 2- You fetch their data from the Codewars API
+// done in logic.js loadUserData function
+
+// const userData =fetchUserData("SallyMcGrath");
+// const userDataName = displayUserData(userData);
 
 //3-  You show a leaderboard table
 
