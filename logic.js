@@ -18,12 +18,40 @@ export async function fetchUserData(username) {
 
 export async function loadUserData(userName) {
   const userData = await fetchUserData(userName);
-  const name = userData.name;
-  console.log(name);
+  return userData;
 }
 
-// const userData = fetchUserData("SallyMcGrath");
 // const userDataName = displayUserData(userData);
 // console.log(displayUserData(userData));
 
-loadUserData("SallyMcGrath");
+const userData = await loadUserData("SallyMcGrath");
+console.log(userData.ranks.languages);
+
+// get list of the languages
+//then get the ranks for each language
+// const languages = getLanguages(userData.ranks.languages);
+// console.log(getLanguages(userData.ranks));
+// console.log(languages);
+// console.log(
+//   "this user: ",
+//   userData.username,
+//   "has these languages: ",
+//   languages,
+// );
+
+function getLanguages(userData) {
+  const languages = [];
+  if (userData) {
+    for (let data in userData) {
+      languages.push(data);
+      console.log(data);
+      //was last working here
+    }
+  }
+  //   const languageNames = Object.keys(languages);
+  //   console.log(languageNames);
+  return languages;
+}
+
+// getLanguages(test);
+// if i want to work on object length==>> Object.keys(object).length

@@ -1,6 +1,7 @@
 import { fetchUserData } from "./logic.js";
 
 //1-  User types Codewars usernames
+//done for only one user, need to add multiple users
 
 const usernameInput = document.getElementById("usernameInput");
 const submitButton = document.getElementById("submitButton");
@@ -17,11 +18,9 @@ submitButton.addEventListener("click", function () {
 });
 
 // 2- You fetch their data from the Codewars API
-// done in logic.js loadUserData function
-
-// const userData =fetchUserData("SallyMcGrath");
-// const userDataName = displayUserData(userData);
+// done in logic.js loadUserData function , again for only one user
 
 //3-  You show a leaderboard table
+//whats required to show??
 
 // 4- User can switch between overall rank and language ranks
