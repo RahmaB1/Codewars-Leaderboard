@@ -1,9 +1,21 @@
+//1-  User types Codewars usernames
+
 const usernameInput = document.getElementById("usernameInput");
 const submitButton = document.getElementById("submitButton");
-let username = "";
+// let username = "";
+const userNamesArray = [];
 const output = document.getElementById("output");
+
 submitButton.addEventListener("click", function () {
-  username = usernameInput.value;
-  console.log("Username entered: " + username);
-  output.textContent += "Hello, " + username + "!";
+  if (usernameInput.value) {
+    userNamesArray.push(usernameInput.value);
+    output.textContent += usernameInput.value + "\n";
+    console.log(userNamesArray);
+  }
 });
+
+// 2- You fetch their data from the Codewars API
+
+//3-  You show a leaderboard table
+
+// 4- User can switch between overall rank and language ranks
