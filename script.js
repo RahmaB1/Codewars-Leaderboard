@@ -1,3 +1,5 @@
+import { fetchUserData } from "./logic.js";
+
 //1-  User types Codewars usernames
 
 const usernameInput = document.getElementById("usernameInput");
