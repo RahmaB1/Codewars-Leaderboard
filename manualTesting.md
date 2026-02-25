@@ -41,12 +41,7 @@ Users without ranking in that language are excluded from the table.
 
 ## The top user's score is visually highlighted ?
 
-?
-?
-?
-?
-?
-?
+after submiting 3 usernames, the table shows the highest scoring user is highlighted.
 
 ## The website must score 100 for accessibility in Lighthouse
 

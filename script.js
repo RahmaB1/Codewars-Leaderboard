@@ -102,6 +102,9 @@ function renderRanks(usersData, selectedLanguage) {
       row.appendChild(usernameCell);
       row.appendChild(clanCell);
       row.appendChild(scoreCell);
+      if (user === 0) {
+        row.className = "top-user";
+      }
     } else if (usersData[user].ranks.languages[selectedLanguage]) {
       console.log("Language is valid:", selectedLanguage);
 
@@ -120,6 +123,9 @@ function renderRanks(usersData, selectedLanguage) {
       row.appendChild(usernameCell);
       row.appendChild(clanCell);
       row.appendChild(scoreCell);
+      if (user === 0) {
+        row.className = "top-user";
+      }
     } else {
       console.log("Language is not valid:", selectedLanguage);
     }
