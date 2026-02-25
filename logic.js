@@ -73,11 +73,20 @@ export async function fetchUserData(username) {
 //   languages,
 // );
 
-export function getLanguagesNames(userData) {
-  //the return is an array of the languages keys / names
-  //[ 'javascript', 'sql', 'typescript' ]
-  return Object.keys(userData.ranks.languages);
+export function getLanguagesNames(usersData) {
+  let languagesNamesArray = [];
+  for (let user = 0; user < usersData.length; user++) {
+    const langsInUser = Object.keys(usersData[user].ranks.languages);
+    langsInUser.forEach((langsInUser) => {
+      if (!languagesNamesArray.includes(langsInUser)) {
+        languagesNamesArray.push(langsInUser);
+      }
+    });
+  }
+  console.log("languagesNamesArray: ", languagesNamesArray);
+  return languagesNamesArray;
 }
+
 // console.log(getLanguagesNames(userSallyData));
 
 //   if (userData) {

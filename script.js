@@ -42,6 +42,8 @@ const userData = {
   },
 };
 
+let usersData = [];
+
 //1-  User types Codewars usernames
 //done for only one user, need to add multiple users
 //Your website should display an input,
@@ -54,17 +56,42 @@ const usernameInput = document.getElementById("usernameInput");
 const submitButton = document.getElementById("submitButton");
 const output = document.getElementById("output");
 // let username = "";
-const userNamesArray = [];
+let userNamesArray = [];
 
 submitButton.addEventListener("click", () => {
-  if (usernameInput.value) {
-    userNamesArray.push(usernameInput.value);
-    output.textContent += usernameInput.value + "\n"; //just for teesting
-    console.log(userNamesArray);
+  let userInputData = usernameInput.value;
+  if (userInputData) {
+    userNamesArray = userInputData.split(",");
+    // console.log(userNamesArray);
+    output.textContent += userNamesArray.join(" - ") + "\n"; //just for teesting
+    // fetchUserData(all users here )
+    handleFetchUsersData(userNamesArray);
   } else {
     console.log("no username entered!");
   }
 });
+
+//Promise.all([Promise, Promise, Promise]) >> runs them all then wait for them to finish then return data for each in an array  []
+async function handleFetchUsersData(userNamesArray) {
+  const promises = userNamesArray.map((user) => {
+    return fetchUserData(user);
+  });
+  usersData = await Promise.all(promises);
+  renderRanks("overall");
+
+  //   console.log(usersData); // tested
+}
+
+//backup
+// submitButton.addEventListener("click", () => {
+//   if (usernameInput.value) {
+//     userNamesArray.push(usernameInput.value);
+//     output.textContent += usernameInput.value + "\n"; //just for teesting
+//     console.log(userNamesArray);
+//   } else {
+//     console.log("no username entered!");
+//   }
+// });
 
 //-------------- Fetch User Data  ----------------------
 
@@ -97,7 +124,7 @@ function handleSelectedLanguage(language) {
 
 function renderRanks(language) {
   //this now renders for any language
-  const languageNamesforuser = getLanguagesNames(userData);
+  const languageNamesforuser = getLanguagesNames(usersData);
   const tableBody = document.querySelector("tbody");
 
   tableBody.innerHTML = "";
