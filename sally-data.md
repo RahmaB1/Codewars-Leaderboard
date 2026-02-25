@@ -1,3 +1,9 @@
+<!--
+for selected language
+data.ranks.languages.${language}
+
+ -->
+
 {
 "id": "6067119dfbf00e000f893e74",
 "username": "SallyMcGrath",
