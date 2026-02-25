@@ -58,20 +58,8 @@ export async function fetchUserData(username) {
   }
 }
 
-// const userData = await fetchUserData("SallyMcGrath");
-// console.log(userData.name);
-
 // get list of the languages
 //then get the ranks for each language
-// const languages = getLanguages(userData.ranks.languages);
-// console.log(getLanguages(userData.ranks));
-// console.log(languages);
-// console.log(
-//   "this user: ",
-//   userData.username,
-//   "has these languages: ",
-//   languages,
-// );
 
 export function getLanguagesNames(usersData) {
   let languagesNamesArray = [];
@@ -83,23 +71,5 @@ export function getLanguagesNames(usersData) {
       }
     });
   }
-  console.log("languagesNamesArray: ", languagesNamesArray);
   return languagesNamesArray;
 }
-
-// console.log(getLanguagesNames(userSallyData));
-
-//   if (userData) {
-//     for (let lang in userData) {
-//       languages.push(data);
-//       console.log(data);
-//       //was last working here
-//     }
-//   }
-//   //   const languageNames = Object.keys(languages);
-//   //   console.log(languageNames);
-//   return languages;
-// }
-
-// getLanguages(test);
-// if i want to work on object length==>> Object.keys(object).length
