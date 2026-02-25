@@ -12,7 +12,6 @@ const usernameInput = document.getElementById("usernameInput");
 const submitButton = document.getElementById("submitButton");
 // let username = "";
 const userNamesArray = [];
-const output = document.getElementById("output");
 
 submitButton.addEventListener("click", function () {
   if (usernameInput.value) {
