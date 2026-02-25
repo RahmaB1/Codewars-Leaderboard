@@ -65,9 +65,9 @@ export function getLanguagesNames(usersData) {
   let languagesNamesArray = [];
   for (let user = 0; user < usersData.length; user++) {
     const langsInUser = Object.keys(usersData[user].ranks.languages);
-    langsInUser.forEach((langsInUser) => {
-      if (!languagesNamesArray.includes(langsInUser)) {
-        languagesNamesArray.push(langsInUser);
+    langsInUser.forEach((lang) => {
+      if (!languagesNamesArray.includes(lang)) {
+        languagesNamesArray.push(lang);
       }
     });
   }
