@@ -133,36 +133,6 @@ function renderRanks() {
   }
 }
 
-//--------------------------------------------------------------------
-function renderRankstest() {
-  // will try the overall first
-
-  const tableBody = document.querySelector("tbody");
-  // Clear existing rows
-  const row = document.createElement("tr");
-  tableBody.appendChild(row);
-
-  const usernameCell = document.createElement("td");
-  const clanCell = document.createElement("td");
-  const scoreCell = document.createElement("td");
-
-  usernameCell.textContent = userData.username;
-  clanCell.textContent = userData.clan;
-  scoreCell.textContent = userData.ranks.overall.score;
-
-  row.appendChild(usernameCell);
-  row.appendChild(clanCell);
-  row.appendChild(scoreCell);
-}
-
-//function for returning the username , clan and score for overall for now == done
-//then each language later == done
-
-//3-  You show a leaderboard table == done for one user
-//whats required to show?? username , clan and score == done for any selected lang and one user
-
-// 4- User can switch between overall rank and language ranks == done
-
 export function sortUsersDataByScore(data) {
   let scoreA = 0;
   let scoreB = 0;
@@ -176,19 +146,7 @@ export function sortUsersDataByScore(data) {
     }
     return scoreB - scoreA;
   });
-  // return usersData.sort((a, b) => {
-  //   // const scoreA =
-  //   //   selectedLanguage === "overall"
-  //   //     ? a.ranks.overall.score
-  //   //     : a.ranks.languages[selectedLanguage].score;
-  //   // const scoreB =
-  //   //   selectedLanguage === "overall"
-  //   //     ? b.ranks.overall.score
-  //   //     : b.ranks.languages[selectedLanguage].score;
-  //   const scoreA = a.ranks.overall.score;
-  //   const scoreB = b.ranks.overall.score;
-  //   return scoreB - scoreA; // Sort in descending order
-  // });
+
   return sortedData;
 }
 
