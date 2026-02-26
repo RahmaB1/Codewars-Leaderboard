@@ -14,11 +14,12 @@ table,
 th,
 td {
   border: 1px solid rgb(255, 253, 253);
-  text-align: left;
+  text-align: center;
 }
 
 table {
-  width: 50%;
+  width: 100%;
+  text-align: center;
 }
 
 .top-user {
