@@ -40,7 +40,32 @@ async function handleFetchUsersData(userNamesArray) {
     return fetchUserData(user);
   });
   usersData = await Promise.all(promises);
-  console.log("usersData: ", usersData);
+  //----------------------------------------------------------
+
+  // const validUsers = [];
+  // const invalidUsers = [];
+
+  // results.forEach((result) => {
+  //   if (result.status === "fulfilled") {
+  //     validUsers.push(result.value);
+  //   } else {
+  //     invalidUsers.push(result.reason.message);
+  //   }
+  // });
+
+  // if (invalidUsers.length > 0) {
+  //   showError(`These users were not found: ${invalidUsers.join(", ")}`);
+  // }
+
+  // if (validUsers.length === 0) {
+  //   return; // nothing to render
+  // }
+
+  // usersData = validUsers;
+
+  //---------------------------------------------------------------
+  // console.log("usersData: ", usersData);
+
   languagesNames = getLanguagesNames(usersData);
   makeLangsSelect(usersData);
   renderRanks(usersData, "overall");
@@ -63,13 +88,13 @@ function makeLangsSelect() {
     option.textContent = lang;
     select.appendChild(option);
   });
-  console.log("line 58");
-  console.log(languagesNames);
+  // console.log("line 58");
+  // console.log(languagesNames);
 }
 
 select.addEventListener("change", () => {
   selectedLanguage = select.value;
-  console.log("Selected language:", selectedLanguage);
+  // console.log("Selected language:", selectedLanguage);
   renderRanks(usersData, selectedLanguage);
 });
 
@@ -77,7 +102,7 @@ function renderRanks(usersData, selectedLanguage) {
   usersData = sortUsersDataByScore();
   //render for multiple users and any lang
   const languageNamesforuser = getLanguagesNames(usersData);
-  console.log("languageNamesforuser: ", languageNamesforuser);
+  // console.log("languageNamesforuser: ", languageNamesforuser);
   const tableBody = document.querySelector("tbody");
 
   tableBody.innerHTML = "";
@@ -85,7 +110,7 @@ function renderRanks(usersData, selectedLanguage) {
 
   for (let user = 0; user < usersData.length; user++) {
     if (selectedLanguage === "overall") {
-      console.log("Overall is selected");
+      // console.log("Overall is selected");
       // Clear existing rows
       // tableBody.innerHTML = "";
       const row = document.createElement("tr");
@@ -106,7 +131,7 @@ function renderRanks(usersData, selectedLanguage) {
         row.className = "top-user";
       }
     } else if (usersData[user].ranks.languages[selectedLanguage]) {
-      console.log("Language is valid:", selectedLanguage);
+      // console.log("Language is valid:", selectedLanguage);
 
       const row = document.createElement("tr");
       tableBody.appendChild(row);
@@ -127,7 +152,7 @@ function renderRanks(usersData, selectedLanguage) {
         row.className = "top-user";
       }
     } else {
-      console.log("Language is not valid:", selectedLanguage);
+      // console.log("Language is not valid:", selectedLanguage);
     }
   }
 
@@ -136,9 +161,9 @@ function renderRanks(usersData, selectedLanguage) {
 
 function sortUsersDataByScore() {
   if (selectedLanguage === "overall") {
-    console.log("Sorting by overall score");
+    // console.log("Sorting by overall score");
   } else {
-    console.log(`Sorting by ${selectedLanguage} score`);
+    // console.log(`Sorting by ${selectedLanguage} score`);
   }
   return usersData.sort((a, b) => {
     // const scoreA =
@@ -184,3 +209,8 @@ onload = renderRanks(usersData, "overall");
 //whats required to show?? username , clan and score == done for any selected lang and one user
 
 // 4- User can switch between overall rank and language ranks == done
+
+export function showError(message) {
+  const errorDiv = document.getElementById("error");
+  errorDiv.textContent = message;
+}

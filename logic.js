@@ -1,3 +1,5 @@
+import { showError } from "./script.js";
+
 const userSallyData = {
   id: "6067119dfbf00e000f893e74",
   username: "SallyMcGrath",
@@ -45,15 +47,20 @@ export async function fetchUserData(username) {
     const response = await fetch(
       `https://www.codewars.com/api/v1/users/${username}`,
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
 
+    console.log("Response: ", response);
+    if (!response.ok) {
+      // throw new Error(`HTTP error! status: ${response.status}`);
+      // throw new Error(`User: ${username} not found`);
+      if (response.status === 404) {
+        throw new Error(`User "${username}" not found`);
+      }
+    }
     const data = await response.json();
-    // console.log("data is:  ", data.name);
     return data;
   } catch (error) {
-    console.error("Error fetching user data:", error);
+    // console.error("Error fetching user data:", error);
+    // showError(error.message);
     throw error;
   }
 }
