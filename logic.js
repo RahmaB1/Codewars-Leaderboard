@@ -26,8 +26,8 @@ export async function fetchUserData(username) {
 
     return { response, data, errorMessege, username };
   } catch (error) {
-    //network error / offline
-    throw error;
+    alert("Network error. Please check your internet connection.");
+    return;
   }
 }
 

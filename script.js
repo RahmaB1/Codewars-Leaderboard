@@ -43,12 +43,14 @@ async function handleFetchUsersData(userNamesArray) {
   const results = await Promise.all(promises);
   nonValidUsers = [];
   for (let i = 0; i < results.length; i++) {
-    if (results[i].response.status === 200) {
-      usersData.push(results[i].data);
-    } else if (results[i].response.status === 404) {
-      nonValidUsers.push(results[i].username);
-      showError(results[i].errorMessege, results[i].username);
-      console.log(showError(results[i].errorMessege, results[i].username));
+    if (results[i].response) {
+      if (results[i].response.status === 200) {
+        usersData.push(results[i].data);
+      } else if (results[i].response.status === 404) {
+        nonValidUsers.push(results[i].username);
+        showError(results[i].errorMessege, results[i].username);
+        console.log(showError(results[i].errorMessege, results[i].username));
+      }
     } else {
       const errorMessege =
         "Network error. Please check your internet connection.";

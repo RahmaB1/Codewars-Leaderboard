@@ -12,6 +12,7 @@ The input field accepts comma-separated usernames correctly.
 I ran console.log()
 to test if data is fetched properly for each and all useres data.
 in console , JSON data is logged successfully.
+Then I compared this data with the one in Codewars API website by checking the usesrnames manually.
 
 ## Based on the leaderboard data, a drop-down is shown, allowing the user to pick from all of the possible language rankings plus the overall ranking
 
@@ -35,17 +36,20 @@ Users are sorted highest to lowest score.
 
 ## Users without a ranking in a chosen language are not shown in that table
 
-I selected a language that only some users have ranked in.
-
-Users without ranking in that language are excluded from the table.
+for these usernames:
+CodeYourFuture - 40thieves - SallyMcGrath
+I selected "sql" from the dropdown,
+only two users have ranked in "sql":
+CodeYourFuture & SallyMcGrath
+But 40thieves is excluded from the table.
 
 ## The top user's score is visually highlighted ?
 
-after submiting 3 usernames, the table shows the highest scoring user is highlighted.
+after submiting 3 usernames, the table shows the highest scoring user's row is highlighted.
 
 ## The website must score 100 for accessibility in Lighthouse
 
-I opened Chrome DevTools → Lighthouse → Accessibility → Generate report.
+I opened Chrome DevTools → Lighthouse → Accessibility → Analyze.
 The accessibility score is 100.
 
 ## Unit tests must be written for at least one non-trivial function
@@ -60,21 +64,21 @@ npm test
 ## Searching for a user which doesn't exist should show a message to the user explaining this.
 
 I searched for non valid username "40thideves"
-This messege displayed:
-These users were not found: 40thideves
+This messege was displayed:
+these usernames were not found: 40thideves
 
 ## If multiple users were searched for, it is acceptable to either just error, or to show the valid users, but the user should be made aware of the invalid users.
 
 case 1 :
 I tested 3 wrong usernames "CodeYourFutuwre,40thiweves,SahllyMcGrath"
 this messege displayed allowing the user to be aware of the invalid users, which in this case all of them:
-"These users were not found: CodeYourFutuwre, 40thiweves, SahllyMcGrath"
-and nothing were rendered in Ranks
+"these usernames were not found: CodeYourFutuwre, 40thiweves, SahllyMcGrath"
+Nothing were rendered in Ranks
 
 case 2:
 I tested 3 user names "CodYourFuture,40thieves,SallyMcGrath", two correct and only one is non valid which is this one "CodYourFuture"
-this error messege was displayed "These users were not found: CodYourFuture"
-and the data for the other two valid usrers rendered as expected :
+this error messege was displayed "these usernames were not found: CodYourFuture"
+and the data for the other two valid users rendered as expected :
 
 Username Clan Score
 SallyMcGrath CodeYourFuture 1228
