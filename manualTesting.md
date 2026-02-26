@@ -55,9 +55,14 @@ The accessibility score is 100.
 ## Unit tests must be written for at least one non-trivial function
 
 Unit tests in index.test.mjs
-The test verify: Sorting logic
 I provided a mock object for 3 users data
+The **First** test verify: Sorting logic
 I tested if the data is sorted based on overall scores, heighest to lowest.
+
+The **Second** test verify:
+the dropdown show all possible languages for the entered usernames
+I tested this for the 3 users by comparing the return value should be all languages that those users have ranked.
+
 All tests pass when running:
 npm test
 
