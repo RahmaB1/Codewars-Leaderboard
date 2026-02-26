@@ -3,34 +3,28 @@ import {
   getLanguagesNames,
   sortUsersDataByScore,
 } from "./logic.js";
-import { fetchUserData2 } from "./temp.js";
 
-// glob variables
 let usersData = [];
 let nonValidUsers = [];
 let languagesNamesFromAll = [];
 let selectedLanguage = "overall";
+const errorDiv = document.getElementById("error");
 
 //------------- Input User Name -----------------------
 const usernameInput = document.getElementById("usernameInput");
 const submitButton = document.getElementById("submitButton");
 const output = document.getElementById("output");
-
-// let username = "";
 let userNamesArray = [];
 
 submitButton.addEventListener("click", () => {
   let userInputData = usernameInput.value;
+  errorDiv.innerHTML = "";
   if (userInputData) {
     userNamesArray = userInputData.split(",");
-    //
-    output.textContent = "Entered Usernames are: ";
-    output.textContent += userNamesArray.join(" - ") + "\n"; //just for teesting
-    //
     usersData = [];
     handleFetchUsersData(userNamesArray);
   } else {
-    console.log("no username entered!");
+    showError("no username entered!", "");
   }
 });
 
@@ -65,10 +59,9 @@ async function handleFetchUsersData(userNamesArray) {
   languagesNamesFromAll = getLanguagesNames(usersData);
   makeLangsSelect(usersData);
   renderRanks(usersData, "overall");
-  console.log(usersData);
 }
 
-//----------- Select for languages ------------
+//----------- Select languages ------------
 
 const select = document.getElementById("languageSelect");
 
@@ -89,8 +82,6 @@ function makeLangsSelect() {
 
 select.addEventListener("change", () => {
   selectedLanguage = select.value;
-  console.log(selectedLanguage);
-
   renderRanks();
 });
 
@@ -125,7 +116,7 @@ function renderRanks() {
       filteredDataByLang,
       selectedLanguage,
     );
-    //now we need to sort this
+
     for (let user = 0; user < newsorted.length; user++) {
       const row = document.createElement("tr");
       tableBody.appendChild(row);
@@ -149,25 +140,7 @@ function renderRanks() {
   }
 }
 
-// export function sortUsersDataByScore(data) {
-//   let scoreA = 0;
-//   let scoreB = 0;
-//   let sortedData = data.sort((a, b) => {
-//     if (selectedLanguage === "overall") {
-//       scoreA = a.ranks.overall.score;
-//       scoreB = b.ranks.overall.score;
-//     } else {
-//       scoreA = a.ranks.languages[selectedLanguage].score;
-//       scoreB = b.ranks.languages[selectedLanguage].score;
-//     }
-//     return scoreB - scoreA;
-//   });
-
-//   return sortedData;
-// }
-
 export function showError(messege, nonValid) {
   let usernames = nonValid ? nonValid : "";
-  const errorDiv = document.getElementById("error");
   return (errorDiv.textContent = `${messege} ${usernames}`);
 }

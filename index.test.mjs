@@ -10,13 +10,7 @@
 import test from "node:test";
 import assert from "node:assert";
 import nock from "nock";
-// import { makeFetchRequest } from "./index.mjs";
 import { sortUsersDataByScore } from "./logic.js";
-
-// test("testing sorting the ranks highest to lowest by testing function sortUsersDataByScore() ", () => {
-//   const data = [3, 2, 10, 5];
-//   assert.deepEqual(sortUsersDataByScore(data), [10, 5, 3, 2]);
-// });
 
 test("sorting overall ranks heighest to lowest", () => {
   let testingData = [
