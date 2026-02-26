@@ -1,72 +1,35 @@
-import { showError } from "./script.js";
-
-const userSallyData = {
-  id: "6067119dfbf00e000f893e74",
-  username: "SallyMcGrath",
-  name: "Sally McGrath",
-  honor: 1025,
-  clan: "CodeYourFuture",
-  leaderboardPosition: 35400,
-  skills: [],
-  ranks: {
-    overall: {
-      rank: -4,
-      name: "4 kyu",
-      color: "blue",
-      score: 1228,
-    },
-    languages: {
-      javascript: {
-        rank: -4,
-        name: "4 kyu",
-        color: "blue",
-        score: 1224,
-      },
-      sql: {
-        rank: -8,
-        name: "8 kyu",
-        color: "white",
-        score: 4,
-      },
-      typescript: {
-        rank: -8,
-        name: "8 kyu",
-        color: "white",
-        score: 2,
-      },
-    },
-  },
-  codeChallenges: {
-    totalAuthored: 0,
-    totalCompleted: 187,
-  },
-};
-
 export async function fetchUserData(username) {
+  let errorMessege = "";
+  let data = null;
+
   try {
     const response = await fetch(
       `https://www.codewars.com/api/v1/users/${username}`,
     );
 
-    console.log("Response: ", response);
+    // console.log("Response status:", response.status);
+
     if (!response.ok) {
-      // throw new Error(`HTTP error! status: ${response.status}`);
-      // throw new Error(`User: ${username} not found`);
       if (response.status === 404) {
+        errorMessege = `User: "${username}" not found`;
+        return { response, errorMessege, username };
         throw new Error(`User "${username}" not found`);
+      } else {
+        errorMessege = `API error: ${response.status} ${response.statusText}, please try again later.`;
+        showError(errorMessege, username);
+        throw new Error(`API error: ${response.status} ${response.statusText}`);
       }
     }
-    const data = await response.json();
-    return data;
+    data = await response.json();
+
+    return { response, data, errorMessege, username };
   } catch (error) {
-    // console.error("Error fetching user data:", error);
-    // showError(error.message);
+    //network error / offline
+    errorMessege = "Network error. Please check your internet connection.";
+    showError(errorMessege);
     throw error;
   }
 }
-
-// get list of the languages
-//then get the ranks for each language
 
 export function getLanguagesNames(usersData) {
   let languagesNamesArray = [];
@@ -80,24 +43,3 @@ export function getLanguagesNames(usersData) {
   }
   return languagesNamesArray;
 }
-
-// export function sortUsersDataByScore(usersData) {
-//   // if (selectedLanguage === "overall") {
-//   //   // console.log("Sorting by overall score");
-//   // } else {
-//   //   // console.log(`Sorting by ${selectedLanguage} score`);
-//   // }
-//   return usersData.sort((a, b) => {
-//     // const scoreA =
-//     //   selectedLanguage === "overall"
-//     //     ? a.ranks.overall.score
-//     //     : a.ranks.languages[selectedLanguage].score;
-//     // const scoreB =
-//     //   selectedLanguage === "overall"
-//     //     ? b.ranks.overall.score
-//     //     : b.ranks.languages[selectedLanguage].score;
-//     const scoreA = a.ranks.overall.score;
-//     const scoreB = b.ranks.overall.score;
-//     return scoreB - scoreA; // Sort in descending order
-//   });
-// }

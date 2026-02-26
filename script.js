@@ -34,7 +34,7 @@ submitButton.addEventListener("click", () => {
 
 async function handleFetchUsersData(userNamesArray) {
   const promises = userNamesArray.map((user) => {
-    return fetchUserData2(user);
+    return fetchUserData(user);
   });
   const results = await Promise.all(promises);
   nonValidUsers = [];
