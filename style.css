@@ -12,3 +12,8 @@ table {
 .top-user {
   background-color: blanchedalmond;
 }
+
+.error {
+  background-color: rgba(255, 0, 0, 0.568);
+  font-weight: bold;
+}

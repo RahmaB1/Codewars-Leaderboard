@@ -1,6 +1,8 @@
 import { fetchUserData, getLanguagesNames } from "./logic.js";
+import { fetchUserData2 } from "./temp.js";
 
 let usersData = [];
+let nonValidUsers = [];
 let languagesNames = [];
 let selectedLanguage = "overall";
 //1-  User types Codewars usernames
@@ -37,9 +39,40 @@ submitButton.addEventListener("click", () => {
 //Promise.all([Promise, Promise, Promise]) >> runs them all then wait for them to finish then return data for each in an array  []
 async function handleFetchUsersData(userNamesArray) {
   const promises = userNamesArray.map((user) => {
-    return fetchUserData(user);
+    return fetchUserData2(user);
   });
-  usersData = await Promise.all(promises);
+  const results = await Promise.all(promises);
+  // usersData = await Promise.all(promises);
+  //--------------------------------------------
+  // console.log("testisng the response when its only error messege ");
+  // console.log("status is: ", results[0].response.status);
+
+  //pushin only valid data to usersData array
+  //the non vaild ones goes to non valid array
+
+  for (let i = 0; i < results.length; i++) {
+    if (results[i].response.status === 200) {
+      usersData.push(results[i].data);
+    } else if (results[i].response.status === 404) {
+      nonValidUsers.push(results[i].username);
+      console.log("nonValidUsers: ", results[i].username);
+    }
+  }
+  if (nonValidUsers.length > 0) {
+    showError(nonValidUsers);
+  }
+
+  // now we should have two arrays
+  // console.log("usersData: ", usersData);
+  // console.log("nonValidUsers: ", nonValidUsers);
+  //---------------------------------------------
+  // const userObject = {
+  //   data: usersData.data,
+  //   errorMessege: usersData.errorMessege,
+  // };
+
+  // console.log(userObject.errorMessege);
+
   //----------------------------------------------------------
 
   // const validUsers = [];
@@ -210,7 +243,7 @@ onload = renderRanks(usersData, "overall");
 
 // 4- User can switch between overall rank and language ranks == done
 
-export function showError(message) {
+export function showError(nonValid) {
   const errorDiv = document.getElementById("error");
-  errorDiv.textContent = message;
+  errorDiv.textContent = `These users were not found: ${nonValid.join(", ")}`;
 }

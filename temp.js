@@ -1,44 +1,40 @@
-export async function fetchUserData(username) {
+export async function fetchUserData2(username) {
   let errorMessege = "";
+  let data = null;
 
   try {
     const response = await fetch(
       `https://www.codewars.com/api/v1/users/${username}`,
     );
 
-    console.log("Response status:", response.status);
+    // console.log("Response status:", response.status);
 
     if (!response.ok) {
       if (response.status === 404) {
         errorMessege = `User: "${username}" not found`;
+        return { response, errorMessege, username };
         throw new Error(`User "${username}" not found`);
       } else {
+        errorMessege = `API error: ${response.status} ${response.statusText}, please try again later.`;
         throw new Error(`API error: ${response.status} ${response.statusText}`);
       }
     }
+    data = await response.json();
 
-    return await response.json();
+    return { response, data, errorMessege, username };
   } catch (error) {
-    if (error instanceof TypeError) {
-      // This usually means network error / offline
-      throw new Error("Network error. Please check your internet connection.");
-    }
-
+    //network error / offline
+    errorMessege = "Network error. Please check your internet connection.";
     throw error;
   }
 }
 
 // fetchUserData("CodeYourFuture");
-const response = await fetchUserData("CodeYourFuture");
+// const response = await fetchUserData("CodeYourFutur");
 
-const userObject = {
-  data: response.data,
-  errorMessege:
-    response.status === 200
-      ? ""
-      : response.status === 404
-        ? "user not found"
-        : "unexpected error, try again ",
-};
+// const userObject = {
+//   data: response.data,
+//   errorMessege: response.errorMessege,
+// };
 
-console.log(userObject.errorMessege);
+// console.log(userObject.errorMessege);
