@@ -11,9 +11,36 @@
     <header class="header"></header>
 
     <main id="main" class="main">
-      <input id="usernameInput" type="text" placeholder="type username..." />
-      <button id="submitButton">Submit</button>
-      <p id="output" class="output">The user output here: ...</p>
+      <div>
+        <input id="usernameInput" type="text" placeholder="type username..." />
+        <button id="submitButton">Submit</button>
+        <p id="error" class="error"></p>
+      </div>
+      <br />
+      <div class="selectContainer">
+        <label for="languageSelect">Select Language:</label>
+        <select id="languageSelect">
+          <option>...</option>
+        </select>
+      </div>
+
+      <br />
+      <div>
+        <h2>Ranks</h2>
+      </div>
+      <div class="tableContainer">
+        <table>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Clan</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+
+          <tbody></tbody>
+        </table>
+      </div>
     </main>
 
     <script src="script.js" type="module"></script>
