@@ -80,3 +80,24 @@ export function getLanguagesNames(usersData) {
   }
   return languagesNamesArray;
 }
+
+// export function sortUsersDataByScore(usersData) {
+//   // if (selectedLanguage === "overall") {
+//   //   // console.log("Sorting by overall score");
+//   // } else {
+//   //   // console.log(`Sorting by ${selectedLanguage} score`);
+//   // }
+//   return usersData.sort((a, b) => {
+//     // const scoreA =
+//     //   selectedLanguage === "overall"
+//     //     ? a.ranks.overall.score
+//     //     : a.ranks.languages[selectedLanguage].score;
+//     // const scoreB =
+//     //   selectedLanguage === "overall"
+//     //     ? b.ranks.overall.score
+//     //     : b.ranks.languages[selectedLanguage].score;
+//     const scoreA = a.ranks.overall.score;
+//     const scoreB = b.ranks.overall.score;
+//     return scoreB - scoreA; // Sort in descending order
+//   });
+// }

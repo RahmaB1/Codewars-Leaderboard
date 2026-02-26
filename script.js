@@ -1,16 +1,11 @@
 import { fetchUserData, getLanguagesNames } from "./logic.js";
 import { fetchUserData2 } from "./temp.js";
 
+// glob variables
 let usersData = [];
 let nonValidUsers = [];
 let languagesNames = [];
 let selectedLanguage = "overall";
-//1-  User types Codewars usernames
-//done for only one user, need to add multiple users
-//Your website should display an input,
-// allowing the user to add a comma-separated list of Codewars usernames
-//  (e.g. "CodeYourFuture,40thieves,SallyMcGrath")
-// that they want to display on the leaderboard.
 
 //------------- Input User Name -----------------------
 const usernameInput = document.getElementById("usernameInput");
@@ -24,10 +19,11 @@ submitButton.addEventListener("click", () => {
   let userInputData = usernameInput.value;
   if (userInputData) {
     userNamesArray = userInputData.split(",");
-    // console.log(userNamesArray);
+    //
+    output.textContent = "Entered Usernames are: ";
     output.textContent += userNamesArray.join(" - ") + "\n"; //just for teesting
-    // errorDiv.textContent = "";
-    // fetchUserData(all users here )
+    //
+    usersData = [];
     handleFetchUsersData(userNamesArray);
   } else {
     console.log("no username entered!");
@@ -36,18 +32,14 @@ submitButton.addEventListener("click", () => {
 
 //-------------- Fetch User Data  ----------------------
 
-// done in logic.js loadUserData function
-
-//Promise.all([Promise, Promise, Promise]) >> runs them all then wait for them to finish then return data for each in an array  []
 async function handleFetchUsersData(userNamesArray) {
   const promises = userNamesArray.map((user) => {
     return fetchUserData2(user);
   });
   const results = await Promise.all(promises);
+  // console.log(results);
+  // console.log(results[0].data);
   // usersData = await Promise.all(promises);
-  //--------------------------------------------
-  // console.log("testisng the response when its only error messege ");
-  // console.log("status is: ", results[0].response.status);
 
   //pushin only valid data to usersData array
   //the non vaild ones goes to non valid array
@@ -63,9 +55,9 @@ async function handleFetchUsersData(userNamesArray) {
   if (nonValidUsers.length > 0) {
     let messege = "these usernames were not found: ";
     let names = nonValidUsers.join(", ");
-    showError(messege, nonValidUsers);
+    showError(messege, names);
   }
-  console.log("test the non valid user repeation:  ", nonValidUsers);
+  // console.log("test the non valid user repeation:  ", nonValidUsers);
 
   // now we should have two arrays
   // console.log("usersData: ", usersData);
@@ -136,14 +128,16 @@ select.addEventListener("change", () => {
   renderRanks(usersData, selectedLanguage);
 });
 
-function renderRanks(usersData, selectedLanguage) {
+function renderRanks() {
+  const tableBody = document.querySelector("tbody");
+  tableBody.innerHTML = "";
+
   usersData = sortUsersDataByScore();
   //render for multiple users and any lang
   const languageNamesforuser = getLanguagesNames(usersData);
   // console.log("languageNamesforuser: ", languageNamesforuser);
-  const tableBody = document.querySelector("tbody");
 
-  tableBody.innerHTML = "";
+  // console.log("line");
   //will need to sort the usersData
 
   for (let user = 0; user < usersData.length; user++) {
@@ -169,7 +163,10 @@ function renderRanks(usersData, selectedLanguage) {
         row.className = "top-user";
       }
     } else if (usersData[user].ranks.languages[selectedLanguage]) {
-      // console.log("Language is valid:", selectedLanguage);
+      // console.log(
+      //   "Language is valid: check the score ... ",
+      //   usersData[user].ranks.languages[selectedLanguage].score,
+      // );
 
       const row = document.createElement("tr");
       tableBody.appendChild(row);
@@ -195,27 +192,6 @@ function renderRanks(usersData, selectedLanguage) {
   }
 
   //this renders for one user - any language
-}
-
-function sortUsersDataByScore() {
-  if (selectedLanguage === "overall") {
-    // console.log("Sorting by overall score");
-  } else {
-    // console.log(`Sorting by ${selectedLanguage} score`);
-  }
-  return usersData.sort((a, b) => {
-    // const scoreA =
-    //   selectedLanguage === "overall"
-    //     ? a.ranks.overall.score
-    //     : a.ranks.languages[selectedLanguage].score;
-    // const scoreB =
-    //   selectedLanguage === "overall"
-    //     ? b.ranks.overall.score
-    //     : b.ranks.languages[selectedLanguage].score;
-    const scoreA = a.ranks.overall.score;
-    const scoreB = b.ranks.overall.score;
-    return scoreB - scoreA; // Sort in descending order
-  });
 }
 
 function renderRankstest() {
@@ -247,6 +223,35 @@ onload = renderRanks(usersData, "overall");
 //whats required to show?? username , clan and score == done for any selected lang and one user
 
 // 4- User can switch between overall rank and language ranks == done
+
+export function sortUsersDataByScore() {
+  let scoreA = 0;
+  let scoreB = 0;
+  let sortedData = usersData.sort((a, b) => {
+    if (selectedLanguage === "overall") {
+      scoreA = a.ranks.overall.score;
+      scoreB = b.ranks.overall.score;
+    } else {
+      scoreA = a.ranks.languages[selectedLanguage].score;
+      scoreB = b.ranks.languages[selectedLanguage].score;
+    }
+    return scoreB - scoreA;
+  });
+  // return usersData.sort((a, b) => {
+  //   // const scoreA =
+  //   //   selectedLanguage === "overall"
+  //   //     ? a.ranks.overall.score
+  //   //     : a.ranks.languages[selectedLanguage].score;
+  //   // const scoreB =
+  //   //   selectedLanguage === "overall"
+  //   //     ? b.ranks.overall.score
+  //   //     : b.ranks.languages[selectedLanguage].score;
+  //   const scoreA = a.ranks.overall.score;
+  //   const scoreB = b.ranks.overall.score;
+  //   return scoreB - scoreA; // Sort in descending order
+  // });
+  return sortedData;
+}
 
 export function showError(messege, nonValid) {
   let usernames = nonValid ? nonValid : "";
