@@ -1,3 +1,5 @@
+import { showError } from "./script.js";
+
 export async function fetchUserData2(username) {
   let errorMessege = "";
   let data = null;
@@ -16,6 +18,7 @@ export async function fetchUserData2(username) {
         throw new Error(`User "${username}" not found`);
       } else {
         errorMessege = `API error: ${response.status} ${response.statusText}, please try again later.`;
+        showError(errorMessege, username);
         throw new Error(`API error: ${response.status} ${response.statusText}`);
       }
     }
@@ -25,6 +28,7 @@ export async function fetchUserData2(username) {
   } catch (error) {
     //network error / offline
     errorMessege = "Network error. Please check your internet connection.";
+    showError(errorMessege);
     throw error;
   }
 }

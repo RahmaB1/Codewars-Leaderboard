@@ -72,27 +72,28 @@ npm test
 
 ## Searching for a user which doesn't exist should show a message to the user explaining this.
 
-?
-?
-?
-?
-?
-?
+I searched for non valid username "40thideves"
+This messege displayed:
+These users were not found: 40thideves
 
 ## If multiple users were searched for, it is acceptable to either just error, or to show the valid users, but the user should be made aware of the invalid users.
 
-?
-?
-?
-?
-?
-?
+case 1 :
+I tested 3 wrong usernames "CodeYourFutuwre,40thiweves,SahllyMcGrath"
+this messege displayed allowing the user to be aware of the invalid users, which in this case all of them:
+"These users were not found: CodeYourFutuwre, 40thiweves, SahllyMcGrath"
+and nothing were rendered in Ranks
+
+case 2:
+I tested 3 user names "CodYourFuture,40thieves,SallyMcGrath", two correct and only one is non valid which is this one "CodYourFuture"
+this error messege was displayed "These users were not found: CodYourFuture"
+and the data for the other two valid usrers rendered as expected :
+
+Username Clan Score
+SallyMcGrath CodeYourFuture 1228
+40thieves 10
 
 ## If fetching from the Codewars API errors (e.g. because you're offline, or made a bad request), the user must be shown a useful error message in the UI.
 
-?
-?
-?
-?
-?
-?
+I tested this by turning off the internet , then entered a username then submit it .
+an error meseege is displayed sayin "Network error. Please check your internet connection."

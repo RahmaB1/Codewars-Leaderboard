@@ -55,11 +55,12 @@ async function handleFetchUsersData(userNamesArray) {
       usersData.push(results[i].data);
     } else if (results[i].response.status === 404) {
       nonValidUsers.push(results[i].username);
-      console.log("nonValidUsers: ", results[i].username);
     }
   }
   if (nonValidUsers.length > 0) {
-    showError(nonValidUsers);
+    let messege = "these usernames were not found: ";
+    let names = nonValidUsers.join(", ");
+    showError(messege, nonValidUsers);
   }
 
   // now we should have two arrays
@@ -243,7 +244,8 @@ onload = renderRanks(usersData, "overall");
 
 // 4- User can switch between overall rank and language ranks == done
 
-export function showError(nonValid) {
+export function showError(messege, nonValid) {
   const errorDiv = document.getElementById("error");
-  errorDiv.textContent = `These users were not found: ${nonValid.join(", ")}`;
+  let usernames = nonValid ? nonValid : "";
+  errorDiv.textContent = ` ${messege} ${usernames}`;
 }
