@@ -13,7 +13,6 @@ const errorDiv = document.getElementById("error");
 //------------- Input User Name -----------------------
 const usernameInput = document.getElementById("usernameInput");
 const submitButton = document.getElementById("submitButton");
-const output = document.getElementById("output");
 let userNamesArray = [];
 
 submitButton.addEventListener("click", () => {
@@ -85,6 +84,7 @@ select.addEventListener("change", () => {
   renderRanks();
 });
 
+//----------- Render Ranks  ------------
 function renderRanks() {
   const tableBody = document.querySelector("tbody");
   tableBody.innerHTML = "";
@@ -139,7 +139,7 @@ function renderRanks() {
     }
   }
 }
-
+//-----------  error messege function  ------------
 export function showError(messege, nonValid) {
   let usernames = nonValid ? nonValid : "";
   return (errorDiv.textContent = `${messege} ${usernames}`);
