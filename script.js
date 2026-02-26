@@ -16,6 +16,7 @@ let selectedLanguage = "overall";
 const usernameInput = document.getElementById("usernameInput");
 const submitButton = document.getElementById("submitButton");
 const output = document.getElementById("output");
+
 // let username = "";
 let userNamesArray = [];
 
@@ -25,6 +26,7 @@ submitButton.addEventListener("click", () => {
     userNamesArray = userInputData.split(",");
     // console.log(userNamesArray);
     output.textContent += userNamesArray.join(" - ") + "\n"; //just for teesting
+    // errorDiv.textContent = "";
     // fetchUserData(all users here )
     handleFetchUsersData(userNamesArray);
   } else {
@@ -49,6 +51,7 @@ async function handleFetchUsersData(userNamesArray) {
 
   //pushin only valid data to usersData array
   //the non vaild ones goes to non valid array
+  nonValidUsers = [];
 
   for (let i = 0; i < results.length; i++) {
     if (results[i].response.status === 200) {
@@ -62,6 +65,7 @@ async function handleFetchUsersData(userNamesArray) {
     let names = nonValidUsers.join(", ");
     showError(messege, nonValidUsers);
   }
+  console.log("test the non valid user repeation:  ", nonValidUsers);
 
   // now we should have two arrays
   // console.log("usersData: ", usersData);
@@ -245,7 +249,7 @@ onload = renderRanks(usersData, "overall");
 // 4- User can switch between overall rank and language ranks == done
 
 export function showError(messege, nonValid) {
-  const errorDiv = document.getElementById("error");
   let usernames = nonValid ? nonValid : "";
+  const errorDiv = document.getElementById("error");
   errorDiv.textContent = ` ${messege} ${usernames}`;
 }
