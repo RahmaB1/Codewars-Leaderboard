@@ -1,3 +1,5 @@
+// import { showError } from "./script.js";
+
 export async function fetchUserData(username) {
   let errorMessege = "";
   let data = null;
@@ -16,7 +18,7 @@ export async function fetchUserData(username) {
         throw new Error(`User "${username}" not found`);
       } else {
         errorMessege = `API error: ${response.status} ${response.statusText}, please try again later.`;
-        showError(errorMessege, username);
+        // showError(errorMessege, username);
         throw new Error(`API error: ${response.status} ${response.statusText}`);
       }
     }
@@ -25,8 +27,8 @@ export async function fetchUserData(username) {
     return { response, data, errorMessege, username };
   } catch (error) {
     //network error / offline
-    errorMessege = "Network error. Please check your internet connection.";
-    showError(errorMessege);
+    // errorMessege = "Network error. Please check your internet connection.";
+    // showError(errorMessege);
     throw error;
   }
 }
@@ -42,4 +44,21 @@ export function getLanguagesNames(usersData) {
     });
   }
   return languagesNamesArray;
+}
+
+export function sortUsersDataByScore(data, selectedLanguage) {
+  let scoreA = 0;
+  let scoreB = 0;
+  let sortedData = data.sort((a, b) => {
+    if (selectedLanguage === "overall") {
+      scoreA = a.ranks.overall.score;
+      scoreB = b.ranks.overall.score;
+    } else {
+      scoreA = a.ranks.languages[selectedLanguage].score;
+      scoreB = b.ranks.languages[selectedLanguage].score;
+    }
+    return scoreB - scoreA;
+  });
+
+  return sortedData;
 }

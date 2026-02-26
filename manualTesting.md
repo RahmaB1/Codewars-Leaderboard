@@ -50,25 +50,12 @@ The accessibility score is 100.
 
 ## Unit tests must be written for at least one non-trivial function
 
-?
-?
-?
-?
-?
-These tests verify:
-
-- Sorting logic
-- Language filtering logic
-- Score calculation
-
+Unit tests in index.test.mjs
+The test verify: Sorting logic
+I provided a mock object for 3 users data
+I tested if the data is sorted based on overall scores, heighest to lowest.
 All tests pass when running:
-
 npm test
-?
-?
-?
-?
-?
 
 ## Searching for a user which doesn't exist should show a message to the user explaining this.
 

@@ -1,4 +1,8 @@
-import { fetchUserData, getLanguagesNames } from "./logic.js";
+import {
+  fetchUserData,
+  getLanguagesNames,
+  sortUsersDataByScore,
+} from "./logic.js";
 import { fetchUserData2 } from "./temp.js";
 
 // glob variables
@@ -43,6 +47,12 @@ async function handleFetchUsersData(userNamesArray) {
       usersData.push(results[i].data);
     } else if (results[i].response.status === 404) {
       nonValidUsers.push(results[i].username);
+      showError(results[i].errorMessege, results[i].username);
+      console.log(showError(results[i].errorMessege, results[i].username));
+    } else {
+      const errorMessege =
+        "Network error. Please check your internet connection.";
+      showError(errorMessege);
     }
   }
   if (nonValidUsers.length > 0) {
@@ -53,6 +63,7 @@ async function handleFetchUsersData(userNamesArray) {
   languagesNamesFromAll = getLanguagesNames(usersData);
   makeLangsSelect(usersData);
   renderRanks(usersData, "overall");
+  console.log(usersData);
 }
 
 //----------- Select for languages ------------
@@ -87,7 +98,7 @@ function renderRanks() {
 
   if (selectedLanguage === "overall") {
     //sort then loop and render
-    usersData = sortUsersDataByScore(usersData);
+    usersData = sortUsersDataByScore(usersData, selectedLanguage);
     for (let user = 0; user < usersData.length; user++) {
       const row = document.createElement("tr");
       tableBody.appendChild(row);
@@ -108,7 +119,10 @@ function renderRanks() {
     const filteredDataByLang = usersData.filter(
       (data) => data.ranks.languages[selectedLanguage],
     );
-    const newsorted = sortUsersDataByScore(filteredDataByLang);
+    const newsorted = sortUsersDataByScore(
+      filteredDataByLang,
+      selectedLanguage,
+    );
     //now we need to sort this
     for (let user = 0; user < newsorted.length; user++) {
       const row = document.createElement("tr");
@@ -133,25 +147,25 @@ function renderRanks() {
   }
 }
 
-export function sortUsersDataByScore(data) {
-  let scoreA = 0;
-  let scoreB = 0;
-  let sortedData = data.sort((a, b) => {
-    if (selectedLanguage === "overall") {
-      scoreA = a.ranks.overall.score;
-      scoreB = b.ranks.overall.score;
-    } else {
-      scoreA = a.ranks.languages[selectedLanguage].score;
-      scoreB = b.ranks.languages[selectedLanguage].score;
-    }
-    return scoreB - scoreA;
-  });
+// export function sortUsersDataByScore(data) {
+//   let scoreA = 0;
+//   let scoreB = 0;
+//   let sortedData = data.sort((a, b) => {
+//     if (selectedLanguage === "overall") {
+//       scoreA = a.ranks.overall.score;
+//       scoreB = b.ranks.overall.score;
+//     } else {
+//       scoreA = a.ranks.languages[selectedLanguage].score;
+//       scoreB = b.ranks.languages[selectedLanguage].score;
+//     }
+//     return scoreB - scoreA;
+//   });
 
-  return sortedData;
-}
+//   return sortedData;
+// }
 
 export function showError(messege, nonValid) {
   let usernames = nonValid ? nonValid : "";
   const errorDiv = document.getElementById("error");
-  errorDiv.textContent = `${messege} ${usernames}`;
+  return (errorDiv.textContent = `${messege} ${usernames}`);
 }

@@ -1,7 +1,19 @@
+body {
+  background-color: rgb(82, 0, 41);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.main {
+  width: 60%;
+}
+
 table,
 th,
 td {
-  border: 1px solid black;
+  border: 1px solid rgb(255, 253, 253);
   text-align: left;
 }
 
@@ -11,6 +23,7 @@ table {
 
 .top-user {
   background-color: blanchedalmond;
+  color: black;
 }
 
 .error {

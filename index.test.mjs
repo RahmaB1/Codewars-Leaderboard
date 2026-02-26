@@ -13,9 +13,72 @@ import nock from "nock";
 // import { makeFetchRequest } from "./index.mjs";
 import { sortUsersDataByScore } from "./logic.js";
 
-test("testing sorting the ranks highest to lowest by testing function sortUsersDataByScore() ", () => {
-  const data = [3, 2, 10, 5];
-  assert.deepEqual(sortUsersDataByScore(data), [10, 5, 3, 2]);
+// test("testing sorting the ranks highest to lowest by testing function sortUsersDataByScore() ", () => {
+//   const data = [3, 2, 10, 5];
+//   assert.deepEqual(sortUsersDataByScore(data), [10, 5, 3, 2]);
+// });
+
+test("sorting overall ranks heighest to lowest", () => {
+  let testingData = [
+    {
+      username: "SallyMcGrath",
+      ranks: {
+        overall: {
+          score: 1228,
+        },
+        languages: {
+          javascript: {
+            score: 1224,
+          },
+          sql: {
+            score: 4,
+          },
+          typescript: {
+            score: 2,
+          },
+        },
+      },
+    },
+    {
+      username: "CodeYourFuture",
+      ranks: {
+        overall: {
+          score: 974,
+        },
+        languages: {
+          javascript: {
+            score: 970,
+          },
+          sql: {
+            score: 4,
+          },
+          go: {
+            score: 2,
+          },
+          ruby: {
+            score: 2,
+          },
+        },
+      },
+    },
+    {
+      username: "40thieves",
+      ranks: {
+        overall: {
+          score: 10,
+        },
+        languages: {
+          javascript: {
+            score: 10,
+          },
+        },
+      },
+    },
+  ];
+  let selectedLanguage = "overall";
+  let sorted = sortUsersDataByScore(testingData, selectedLanguage);
+  console.log(sorted);
+  assert.deepEqual(sorted[0].username, "SallyMcGrath");
 });
 
 // test("mocks a fetch function", async () => {
